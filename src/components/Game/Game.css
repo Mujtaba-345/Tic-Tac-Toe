@@ -1,0 +1,24 @@
+.board-row:after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+  
+  
+  .game {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .game-info {
+    margin-left: 20px;
+  }
+
+  .disable {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .enable{
+    opacity:1;
+  }
