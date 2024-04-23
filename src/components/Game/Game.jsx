@@ -6,13 +6,18 @@ export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [isAscending, setIsAscending] = useState(true);
+  const [moveLocation,setMoveLocation]=useState([]);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
-  function handlePlay(nextSquares) {
+  function handlePlay(nextSquares,row_id,col_id) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    const nextMoveLocation = [...moveLocation.slice(0, moveLocation.length), { row_id, col_id }];
+
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+    setMoveLocation(nextMoveLocation);
+
   }
 
   function jumpTo(nextMove) {
@@ -24,6 +29,7 @@ export default function Game() {
   };
 
   let moves = history.map((squares, move) => {
+    const{row_id,col_id}=moveLocation[move] ||{'row_id':null,'col_id':null}
     const description = move > 0 ? `Go to move # ${move}` : "Go to game start";
 
     return (
@@ -33,6 +39,8 @@ export default function Game() {
         ) : (
           <button onClick={() => jumpTo(move)}>{description}</button>
         )}
+        <br/>
+        <span>Row :{row_id},Col:{col_id}</span>
       </li>
     );
   });

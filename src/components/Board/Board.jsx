@@ -5,13 +5,13 @@ import Square from '../Square/Square'
 
 function Board({ xIsNext, squares, onPlay }) {
 
-  function handleClick(i) {
+  function handleClick(i,row_id,col_id) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const nextSquares = squares.slice();
     nextSquares[i] = xIsNext ? 'X' : 'O';
-    onPlay(nextSquares);
+    onPlay(nextSquares,row_id,col_id);
   }
 
   const winner = calculateWinner(squares)
@@ -29,11 +29,14 @@ function Board({ xIsNext, squares, onPlay }) {
     const squaresInRow = [];
     for (let col = 0; col < 3; col++) {
       const index = row * 3 + col;
+      const row_id=row+1
+      const col_id=col+1
+
       squaresInRow.push(
         <Square
           key={index}
           value={squares[index]}
-          onSquareClick={() => handleClick(index)}
+          onSquareClick={() => handleClick(index,row_id,col_id)}
         />
       );
     }
